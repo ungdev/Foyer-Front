@@ -1,0 +1,9 @@
+.login-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('./assets/utt.jpg');
+  background-size: cover;
+  height: 100%;
+  background-position: center;
+}
