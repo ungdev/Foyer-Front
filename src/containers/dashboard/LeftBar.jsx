@@ -37,8 +37,8 @@ class LeftBar extends React.Component {
     })
   }
   render() {
-    const { user } = this.props
-    if (!user) return <Spin />
+    const { user, assos } = this.props
+    if (!user || !assos) return <Spin />
     const { admin } = user
     return (
       <Sider breakpoint='lg' collapsedWidth='0' width={250} theme='dark'>
@@ -60,6 +60,29 @@ class LeftBar extends React.Component {
               <span>Accueil</span>
             </Link>
           </Menu.Item>
+
+          {/* USER'S ASSOS BUTTONS */}
+
+          {assos.length > 0 && (
+            <Menu.SubMenu
+              key='assos'
+              title={
+                <span>
+                  <Icon type='team' />
+                  <span>Mes associations</span>
+                </span>
+              }
+            >
+              {assos.map(asso => (
+                <Menu.Item key={'assos/' + asso.login}>
+                  <Link to={'/assos/' + asso.login}>
+                    <Icon type='global' />
+                    <span>{asso.name}</span>
+                  </Link>
+                </Menu.Item>
+              ))}
+            </Menu.SubMenu>
+          )}
           {/* ADMIN ONLY BUTTONS */}
           {admin && (
             <Menu.Item key='users'>
@@ -81,6 +104,7 @@ class LeftBar extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.user.user,
+  assos: state.user.assos,
   location: state.routing.location.pathname
 })
 

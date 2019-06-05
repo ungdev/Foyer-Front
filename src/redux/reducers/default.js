@@ -1,7 +1,7 @@
 import { SET_USERS, SET_ADMIN, REMOVE_ADMIN } from '../actions/admin'
 import { SET_TOKEN } from '../actions/login'
 import { SET_TWEETS } from '../actions/socketio'
-import { SET_USER } from '../actions/user'
+import { SET_USER, SET_ASSOS } from '../actions/user'
 
 export const admin = (
   state = {
@@ -87,7 +87,8 @@ export const socketio = (
 
 export const user = (
   state = {
-    user: null
+    user: null,
+    assos: []
   },
   action
 ) => {
@@ -96,11 +97,16 @@ export const user = (
       return {
         ...state,
         user: {
-          ...action.payload,
-          admin: action.payload
-            ? action.payload.permissions.findIndex(p => p === 'admin') !== -1
+          ...action.user,
+          admin: action.user
+            ? action.user.permissions.findIndex(p => p === 'admin') !== -1
             : false
         }
+      }
+    case SET_ASSOS:
+      return {
+        ...state,
+        assos: action.assos
       }
 
     default:

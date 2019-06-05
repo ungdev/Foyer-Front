@@ -5,22 +5,28 @@ import { Spin } from 'antd'
 import Layout from './layout'
 import DashboardHome from './pages/DashboardHome'
 import UsersManagement from './pages/UserManagement'
+import AssoManagement from './pages/AssoManagement'
 
 const baseUrl = process.env.REACT_APP_BASEURL
 
 class Dashboard extends React.Component {
   render() {
-    if (!this.props.user) return <Spin />
-    const { admin } = this.props.user
+    const { assos, user } = this.props
+    if (!user || !assos) return <Spin />
+    const { admin } = user
     const component = (
       <Switch>
         <Route path={baseUrl} exact component={DashboardHome} />
 
+        {/* ASSOS ROUTES */}
+        {assos.length > 0 && (
+          <Route path={baseUrl + 'assos/:login'} component={AssoManagement} />
+        )}
         {/* ADMIN ONLY ROUTES */}
         {admin && (
           <React.Fragment>
             <Route
-              path={baseUrl + '/users'}
+              path={baseUrl + 'users'}
               exact
               component={UsersManagement}
             />
@@ -36,7 +42,8 @@ class Dashboard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user.user
+  user: state.user.user,
+  assos: state.user.assos
 })
 
 const mapDispatchToProps = dispatch => ({})
