@@ -69,3 +69,27 @@ export const editPerm = (id, params) => {
     }
   }
 }
+export const addAssoToPerm = (id, login) => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      const res = await axios.post(
+        `perms/${id}/assos`,
+        { login },
+        {
+          headers: {
+            Authorization: `Basic ${authToken}`,
+            'X-Date': moment().format()
+          }
+        }
+      )
+      dispatch({ type: EDIT_PERM, perm: res.data })
+    } catch (err) {
+      console.log(err)
+      dispatch(logout())
+    }
+  }
+}

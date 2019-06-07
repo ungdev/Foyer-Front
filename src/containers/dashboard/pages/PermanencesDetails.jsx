@@ -1,24 +1,43 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchPerms } from '../../../redux/actions/perm'
+import { fetchPerms, addAssoToPerm } from '../../../redux/actions/perm'
 import { push } from 'react-router-redux'
 import { Button, Spin, Divider, Skeleton, List, Avatar } from 'antd'
 import PermDrawer from './components/PermDrawer'
+import AssosModal from './components/AssosModal'
 
 class PermanencesDetails extends React.Component {
   constructor(props) {
     super(props)
     props.fetchPerms()
     this.state = {
-      createDrawerVisible: false
+      createDrawerVisible: false,
+      assoModalVisible: false
     }
   }
-  addAsso = () => {
-    console.log('ADDASSO')
+  addAsso = perm => {
+    const form = this.formRef.props.form
+    form.validateFields((err, values) => {
+      if (err) {
+        return
+      }
+
+      this.props.addAssoToPerm(perm.id, values.asso)
+      form.resetFields()
+      this.setState({ assoModalVisible: false })
+    })
+  }
+  openAssoModal = () => {
+    this.setState({ assoModalVisible: true })
   }
   createPerm = () => {
     this.setState({ createDrawerVisible: true })
   }
+
+  saveFormRef = formRef => {
+    this.formRef = formRef
+  }
+
   render() {
     const { perms, location } = this.props
     if (!perms) return <Spin />
@@ -35,6 +54,12 @@ class PermanencesDetails extends React.Component {
           creneau={creneau}
           day={day}
           onClose={() => this.setState({ createDrawerVisible: false })}
+        />
+        <AssosModal
+          wrappedComponentRef={this.saveFormRef}
+          visible={this.state.assoModalVisible}
+          onCancel={() => this.setState({ assoModalVisible: false })}
+          onCreate={() => this.addAsso(perm)}
         />
         <Button type='primary' onClick={this.props.goToPerms}>
           Retour au tableau de perm
@@ -70,7 +95,7 @@ class PermanencesDetails extends React.Component {
           />
         )}
         {perm && (
-          <Button type='primary' onClick={this.addAsso}>
+          <Button type='primary' onClick={this.openAssoModal}>
             Ajouter une association
           </Button>
         )}
@@ -85,7 +110,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchPerms: () => dispatch(fetchPerms()),
-  goToPerms: () => dispatch(push('/perms'))
+  goToPerms: () => dispatch(push('/perms')),
+  addAssoToPerm: (id, asso) => dispatch(addAssoToPerm(id, asso))
 })
 
 export default connect(

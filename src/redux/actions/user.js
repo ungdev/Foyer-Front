@@ -3,7 +3,7 @@ import { logout } from './login'
 import moment from 'moment'
 
 export const SET_USER = 'user/SET_USER'
-export const SET_ASSOS = 'user/SET_ASSOS'
+export const SET_USER_ASSOS = 'user/SET_USER_ASSOS'
 
 export const fetchUser = () => {
   return async (dispatch, getState) => {
@@ -39,7 +39,7 @@ export const fetchAssos = () => {
           'X-Date': moment().format()
         }
       })
-      dispatch({ type: SET_ASSOS, assos: res.data })
+      dispatch({ type: SET_USER_ASSOS, assos: res.data })
     } catch (err) {
       console.log(err)
       dispatch(logout())

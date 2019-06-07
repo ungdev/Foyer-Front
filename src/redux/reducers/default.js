@@ -1,7 +1,8 @@
 import { SET_USERS, SET_ADMIN, REMOVE_ADMIN } from '../actions/admin'
 import { SET_TOKEN } from '../actions/login'
 import { SET_TWEETS } from '../actions/socketio'
-import { SET_USER, SET_ASSOS } from '../actions/user'
+import { SET_USER, SET_USER_ASSOS } from '../actions/user'
+import { SET_ASSOS } from '../actions/asso'
 import { SET_PERMS } from '../actions/perm'
 
 export const admin = (
@@ -104,6 +105,24 @@ export const user = (
             : false
         }
       }
+    case SET_USER_ASSOS:
+      return {
+        ...state,
+        assos: action.assos
+      }
+
+    default:
+      return state
+  }
+}
+
+export const asso = (
+  state = {
+    assos: []
+  },
+  action
+) => {
+  switch (action.type) {
     case SET_ASSOS:
       return {
         ...state,
