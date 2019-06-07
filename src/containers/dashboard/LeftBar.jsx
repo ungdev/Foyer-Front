@@ -60,6 +60,12 @@ class LeftBar extends React.Component {
               <span>Accueil</span>
             </Link>
           </Menu.Item>
+          <Menu.Item key='perms'>
+            <Link to={'/perms'}>
+              <Icon type='appstore' />
+              <span>Tableau de perms</span>
+            </Link>
+          </Menu.Item>
 
           {/* USER'S ASSOS BUTTONS */}
 

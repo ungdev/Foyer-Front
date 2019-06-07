@@ -1,0 +1,22 @@
+.perms-header > div > div {
+  background-color: rgb(42, 112, 202);
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.perms-content > div > a {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3px;
+  color: black;
+}
+.odd > div > a{
+  background-color: rgb(178, 224, 245);
+}
+.even > div > a{
+  background-color: rgb(128, 176, 240);
+}

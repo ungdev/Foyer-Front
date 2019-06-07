@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { Spin } from 'antd'
 import Layout from './layout'
 import DashboardHome from './pages/DashboardHome'
+import Permanences from './pages/Permanences'
+import PermanencesDetails from './pages/PermanencesDetails'
 import UsersManagement from './pages/UserManagement'
 import AssoManagement from './pages/AssoManagement'
 
@@ -17,6 +19,8 @@ class Dashboard extends React.Component {
     const component = (
       <Switch>
         <Route path={baseUrl} exact component={DashboardHome} />
+        <Route path={baseUrl + 'perms'} exact component={Permanences} />
+        <Route path={baseUrl + 'perms/:creneau'} component={PermanencesDetails} />
 
         {/* ASSOS ROUTES */}
         {assos.length > 0 && (
@@ -25,11 +29,7 @@ class Dashboard extends React.Component {
         {/* ADMIN ONLY ROUTES */}
         {admin && (
           <React.Fragment>
-            <Route
-              path={baseUrl + 'users'}
-              exact
-              component={UsersManagement}
-            />
+            <Route path={baseUrl + 'users'} exact component={UsersManagement} />
           </React.Fragment>
         )}
 

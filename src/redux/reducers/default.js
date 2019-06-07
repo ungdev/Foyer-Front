@@ -2,6 +2,7 @@ import { SET_USERS, SET_ADMIN, REMOVE_ADMIN } from '../actions/admin'
 import { SET_TOKEN } from '../actions/login'
 import { SET_TWEETS } from '../actions/socketio'
 import { SET_USER, SET_ASSOS } from '../actions/user'
+import { SET_PERMS } from '../actions/perm'
 
 export const admin = (
   state = {
@@ -107,6 +108,24 @@ export const user = (
       return {
         ...state,
         assos: action.assos
+      }
+
+    default:
+      return state
+  }
+}
+
+export const perm = (
+  state = {
+    perms: []
+  },
+  action
+) => {
+  switch (action.type) {
+    case SET_PERMS:
+      return {
+        ...state,
+        perms: action.perms
       }
 
     default:
