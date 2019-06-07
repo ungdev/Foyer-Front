@@ -55,7 +55,7 @@ class LeftBar extends React.Component {
           onClick={this.handleClick}
         >
           <Menu.Item key='home'>
-            <Link to={'/admin'}>
+            <Link to={'/'}>
               <Icon type='appstore' />
               <span>Accueil</span>
             </Link>
@@ -92,7 +92,7 @@ class LeftBar extends React.Component {
           {/* ADMIN ONLY BUTTONS */}
           {admin && (
             <Menu.Item key='users'>
-              <Link to={'/admin/users'}>
+              <Link to={'/users'}>
                 <Icon type='team' />
                 <span>Gestion des utilisateurs</span>
               </Link>
