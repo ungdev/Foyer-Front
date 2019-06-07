@@ -1,5 +1,5 @@
 import axios from '../../lib/axios'
-import { logout } from './login'
+import errorHandler from '../../lib/errorHandler'
 import moment from 'moment'
 
 export const SET_USER = 'user/SET_USER'
@@ -21,8 +21,7 @@ export const fetchUser = () => {
       dispatch({ type: SET_USER, user: res.data })
       dispatch(fetchAssos())
     } catch (err) {
-      console.log(err)
-      dispatch(logout())
+      errorHandler(err, dispatch)
     }
   }
 }
@@ -41,8 +40,7 @@ export const fetchAssos = () => {
       })
       dispatch({ type: SET_USER_ASSOS, assos: res.data })
     } catch (err) {
-      console.log(err)
-      dispatch(logout())
+      errorHandler(err, dispatch)
     }
   }
 }

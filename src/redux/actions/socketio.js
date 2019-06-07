@@ -1,4 +1,5 @@
 import io from 'socket.io-client'
+import errorHandler from '../../lib/errorHandler'
 
 export const SET_TWEETS = 'socketio/SET_TWEETS'
 
@@ -10,7 +11,7 @@ export const startSocketIO = () => {
         dispatch({ type: SET_TWEETS, payload: tweets })
       })
     } catch (err) {
-      console.log(err)
+      errorHandler(err, dispatch)
     }
   }
 }

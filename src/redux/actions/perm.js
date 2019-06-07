@@ -1,5 +1,5 @@
 import axios from '../../lib/axios'
-import { logout } from './login'
+import errorHandler from '../../lib/errorHandler'
 import moment from 'moment'
 
 export const SET_PERMS = 'perm/SET_PERMS'
@@ -21,8 +21,7 @@ export const fetchPerms = () => {
       })
       dispatch({ type: SET_PERMS, perms: res.data })
     } catch (err) {
-      console.log(err)
-      dispatch(logout())
+      errorHandler(err, dispatch)
     }
   }
 }
@@ -43,8 +42,7 @@ export const createPerm = params => {
       })
       dispatch({ type: ADD_PERM, perm: res.data })
     } catch (err) {
-      console.log(err.response)
-      dispatch(logout())
+      errorHandler(err, dispatch)
     }
   }
 }
@@ -64,8 +62,7 @@ export const editPerm = (id, params) => {
       })
       dispatch({ type: EDIT_PERM, perm: res.data })
     } catch (err) {
-      console.log(err)
-      dispatch(logout())
+      errorHandler(err, dispatch)
     }
   }
 }
@@ -88,8 +85,7 @@ export const addAssoToPerm = (id, login) => {
       )
       dispatch({ type: EDIT_PERM, perm: res.data })
     } catch (err) {
-      console.log(err)
-      dispatch(logout())
+      errorHandler(err, dispatch)
     }
   }
 }

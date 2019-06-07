@@ -1,5 +1,5 @@
 import axios from '../../lib/axios'
-import { logout } from './login'
+import errorHandler from '../../lib/errorHandler'
 import moment from 'moment'
 
 export const SET_ASSOS = 'asso/SET_ASSOS'
@@ -19,8 +19,7 @@ export const fetchAssos = () => {
       })
       dispatch({ type: SET_ASSOS, assos: res.data })
     } catch (err) {
-      console.log(err)
-      dispatch(logout())
+      errorHandler(err, dispatch)
     }
   }
 }
