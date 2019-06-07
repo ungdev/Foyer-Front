@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchPerms, addAssoToPerm } from '../../../redux/actions/perm'
 import { push } from 'react-router-redux'
-import { Button, Spin, Divider, Skeleton, List, Avatar } from 'antd'
+import { Button, Spin, Divider, List, Avatar, Skeleton } from 'antd'
 import PermDrawer from './components/PermDrawer'
 import AssosModal from './components/AssosModal'
 
@@ -39,7 +39,7 @@ class PermanencesDetails extends React.Component {
   }
 
   render() {
-    const { perms, location } = this.props
+    const { perms, location, assos } = this.props
     if (!perms) return <Spin />
     const creneau = location.pathname.split('/perms/')[1]
     const [day, hours] = creneau.split(' ')
@@ -47,6 +47,7 @@ class PermanencesDetails extends React.Component {
     const perm = perms.find(
       p => p.start === start && p.end === end && p.day === day
     )
+    console.log(perm, assos)
     return (
       <div>
         <PermDrawer
@@ -73,25 +74,42 @@ class PermanencesDetails extends React.Component {
             Créer cette permanence
           </Button>
         )}
-        {perm && perm.assos && perm.assos.length > 0 && (
+        {perm && perm.orgas && perm.orgas.length > 0 && (
           <List
             header={<div>Liste des assos de la permanence :</div>}
             bordered
-            dataSource={perm.assos}
-            renderItem={item => (
-              <List.Item actions={[<a>edit</a>, <a>more</a>]}>
-                <Skeleton avatar title={false} loading={false} active>
-                  <List.Item.Meta
-                    avatar={
-                      <Avatar src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png' />
-                    }
-                    title={<a href='https://ant.design'>oui</a>}
-                    description='Ant Design, a design language for background applications, is refined by Ant UED Team'
-                  />
-                  <div>content</div>
-                </Skeleton>
-              </List.Item>
-            )}
+            dataSource={perm.orgas}
+            renderItem={item => {
+              const asso = assos.find(a => a.login === item.login)
+              console.log(asso)
+              return (
+                <List.Item actions={[<a>supprimer</a>]}>
+                  <Skeleton avatar loading={asso ? false : true} active>
+                    {asso && (
+                      <List.Item.Meta
+                        avatar={
+                          <Avatar
+                            src={`${process.env.REACT_APP_API}/assos/${
+                              item.id
+                            }/image`}
+                          />
+                        }
+                        title={
+                          <a
+                            href={`${process.env.REACT_APP_API}/assos/${
+                              item.id
+                            }/link`}
+                          >
+                            {item.name}
+                          </a>
+                        }
+                        description={asso.descriptionShort}
+                      />
+                    )}
+                  </Skeleton>
+                </List.Item>
+              )
+            }}
           />
         )}
         {perm && (
@@ -104,6 +122,7 @@ class PermanencesDetails extends React.Component {
   }
 }
 const mapStateToProps = state => ({
+  assos: state.asso.assos,
   perms: state.perm.perms,
   location: state.routing.location
 })

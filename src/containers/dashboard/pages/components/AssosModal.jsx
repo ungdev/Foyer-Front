@@ -1,15 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Modal, Form, Select, Spin } from 'antd'
-import { fetchAssos } from '../../../../redux/actions/asso'
 const { Option } = Select
 
 class AssosModal extends React.Component {
-  constructor(props) {
-    super(props)
-    props.fetchAssos()
-  }
-
   render() {
     const { visible, onCancel, onCreate, form, assos } = this.props
     const { getFieldDecorator } = form
@@ -61,12 +55,9 @@ const mapStateToProps = state => ({
   assos: state.asso.assos
 })
 
-const mapDispatchToProps = dispatch => ({
-  fetchAssos: () => dispatch(fetchAssos())
-})
 
 const AssosModalForm = Form.create()(AssosModal)
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(AssosModalForm)

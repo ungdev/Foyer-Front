@@ -4,7 +4,7 @@ import moment from 'moment'
 
 export const SET_ASSOS = 'asso/SET_ASSOS'
 
-export const fetchAssos = () => {
+export const fetchAllAssos = () => {
   return async (dispatch, getState) => {
     const authToken = getState().login.token
     if (!authToken || authToken.length === 0) {
