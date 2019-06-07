@@ -40,18 +40,19 @@ class PermanencesDetails extends React.Component {
 
   render() {
     const { perms, location, assos } = this.props
-    if (!perms) return <Spin />
+    if (!perms || !location.pathname) return <Spin />
     const creneau = location.pathname.split('/perms/')[1]
+    if (!creneau) return <Spin />
     const [day, hours] = creneau.split(' ')
     const [start, end] = hours.split('/')
     const perm = perms.find(
       p => p.start === start && p.end === end && p.day === day
     )
-    console.log(perm, assos)
     return (
       <div>
         <PermDrawer
           visible={this.state.createDrawerVisible}
+          perm={this.state.perm}
           creneau={creneau}
           day={day}
           onClose={() => this.setState({ createDrawerVisible: false })}
@@ -67,7 +68,10 @@ class PermanencesDetails extends React.Component {
         </Button>
         <Divider />
         <h1>
-          Permanence du {day} {hours} {perm && perm.name}
+          Permanence du {day} {hours} {perm && perm.name}{' '}
+          <Button type='primary' onClick={() => this.setState({ createDrawerVisible: true, perm })}>
+            Modifier
+          </Button>
         </h1>
         {!perm && (
           <Button type='primary' onClick={this.createPerm}>
@@ -81,7 +85,6 @@ class PermanencesDetails extends React.Component {
             dataSource={perm.orgas}
             renderItem={item => {
               const asso = assos.find(a => a.login === item.login)
-              console.log(asso)
               return (
                 <List.Item actions={[<a>supprimer</a>]}>
                   <Skeleton avatar loading={asso ? false : true} active>

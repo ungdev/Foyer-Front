@@ -1,5 +1,6 @@
 import errorToString from './errorToString'
 import { actions as notifActions } from 'redux-notifications'
+import { logout } from '../redux/actions/login'
 
 export default (error, dispatch) => {
   if (!error || !error.response) {
@@ -14,7 +15,9 @@ export default (error, dispatch) => {
     return
   }
   console.log('BASE ERROR :', error)
-  console.log('ERROR :', error.response.data.error)
+  console.log('error.response :', error.response)
+  console.log('error.response.data :', error.response.data)
+  console.log('error.response.data.error :', error.response.data.error)
   dispatch(
     notifActions.notifSend({
       message: errorToString(error.response.data.error),
@@ -22,4 +25,7 @@ export default (error, dispatch) => {
       dismissAfter: 2000
     })
   )
+  if (error.response.data.error === 'expired_token') {
+    dispatch(logout())
+  }
 }
