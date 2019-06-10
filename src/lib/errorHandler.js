@@ -25,7 +25,10 @@ export default (error, dispatch) => {
       dismissAfter: 2000
     })
   )
-  if (error.response.data.error === 'expired_token') {
+  if (
+    error.response.data.error === 'expired_token' ||
+    error.response.data.error === 'INVALID_TOKEN'
+  ) {
     dispatch(logout())
   }
 }

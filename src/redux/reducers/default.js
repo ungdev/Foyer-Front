@@ -2,8 +2,8 @@ import { SET_USERS, SET_ADMIN, REMOVE_ADMIN } from '../actions/admin'
 import { SET_TOKEN } from '../actions/login'
 import { SET_TWEETS } from '../actions/socketio'
 import { SET_USER, SET_USER_ASSOS } from '../actions/user'
-import { SET_ASSOS } from '../actions/asso'
-import { SET_PERMS } from '../actions/perm'
+import { SET_ASSOS, UPDATE_ASSO } from '../actions/asso'
+import { SET_PERMS, ADD_PERM, EDIT_PERM } from '../actions/perm'
 
 export const admin = (
   state = {
@@ -11,41 +11,21 @@ export const admin = (
   },
   action
 ) => {
-  let users = null
   switch (action.type) {
     case SET_USERS:
-      users = action.users.map(user => {
-        return {
-          ...user,
-          admin: user.permissions.findIndex(u => u === 'admin') !== -1
-        }
-      })
       return {
         ...state,
-        users
+        users: action.users
       }
     case SET_ADMIN:
-      users = state.users.map(user => {
-        if (user.id !== action.id) return user
-        let { permissions } = user
-        if (!permissions) permissions = []
-        permissions.push('admin')
-        return { ...user, permissions, admin: true }
-      })
       return {
         ...state,
-        users
+        users: action.users
       }
     case REMOVE_ADMIN:
-      users = state.users.map(user => {
-        if (user.id !== action.id) return user
-        let { permissions } = user
-        permissions = permissions.filter(p => p !== 'admin')
-        return { ...user, permissions, admin: false }
-      })
       return {
         ...state,
-        users
+        users: action.users
       }
 
     default:
@@ -98,12 +78,7 @@ export const user = (
     case SET_USER:
       return {
         ...state,
-        user: {
-          ...action.user,
-          admin: action.user
-            ? action.user.permissions.findIndex(p => p === 'admin') !== -1
-            : false
-        }
+        user: action.user
       }
     case SET_USER_ASSOS:
       return {
@@ -115,7 +90,6 @@ export const user = (
       return state
   }
 }
-
 export const asso = (
   state = {
     assos: []
@@ -128,7 +102,11 @@ export const asso = (
         ...state,
         assos: action.assos
       }
-
+    case UPDATE_ASSO:
+      return {
+        ...state,
+        assos: action.assos
+      }
     default:
       return state
   }
@@ -146,7 +124,13 @@ export const perm = (
         ...state,
         perms: action.perms
       }
-
+    case ADD_PERM:
+      return { ...state, perms: [...state.perms, action.perm] }
+    case EDIT_PERM:
+      return {
+        ...state,
+        perms: action.perms
+      }
     default:
       return state
   }

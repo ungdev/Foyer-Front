@@ -33,7 +33,6 @@ export const createPerm = params => {
       return
     }
     try {
-      console.log(params)
       const res = await axios.post('perms', params, {
         headers: {
           Authorization: `Basic ${authToken}`,
@@ -60,7 +59,7 @@ export const editPerm = (id, params) => {
           'X-Date': moment().format()
         }
       })
-      dispatch({ type: EDIT_PERM, perm: res.data })
+      dispatch(editPermAction(getState(), res.data))
     } catch (err) {
       errorHandler(err, dispatch)
     }
@@ -73,7 +72,7 @@ export const addAssoToPerm = (id, login) => {
       return
     }
     try {
-      const res = await axios.post(
+      await axios.post(
         `perms/${id}/assos`,
         { login },
         {
@@ -83,9 +82,22 @@ export const addAssoToPerm = (id, login) => {
           }
         }
       )
-      dispatch({ type: EDIT_PERM, perm: res.data })
+      const { assos } = getState().asso
+      const asso = assos.find(a => a.login === login)
+      const perms = getState().perm.perms.slice()
+      const index = perms.findIndex(p => p.id === id)
+      if(!perms[index].orgas) perms[index].orgas = []
+      perms[index].orgas.push(asso)
+      dispatch({ type: EDIT_PERM, perms })
     } catch (err) {
       errorHandler(err, dispatch)
     }
   }
+}
+
+const editPermAction = (state, perm) => {
+  const perms = state.perm.perms.slice()
+  const index = perms.findIndex(p => p.id === perm.id)
+  perms[index] = perm
+  return { type: EDIT_PERM, perms }
 }

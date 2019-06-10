@@ -19,7 +19,11 @@ export const fetchUser = () => {
           'X-Date': moment().format()
         }
       })
-      dispatch({ type: SET_USER, user: res.data })
+      const user = {
+        ...res.data,
+        admin: res.data.permissions.findIndex(p => p === 'admin') !== -1
+      }
+      dispatch({ type: SET_USER, user })
       dispatch(fetchAssos())
     } catch (err) {
       errorHandler(err, dispatch)

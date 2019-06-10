@@ -21,7 +21,7 @@ class PermDrawer extends React.Component {
         let perm = {
           name: values.name,
           day: values.day,
-          start,
+          start: start.split(' ')[1],
           end
         }
         if (this.props.perm) this.props.editPerm(this.props.perm.id, perm)

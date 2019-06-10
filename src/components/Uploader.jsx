@@ -2,7 +2,7 @@ import React from 'react'
 import { Upload, Icon, Modal } from 'antd'
 import { connect } from 'react-redux'
 import { actions as notifActions } from 'redux-notifications'
-import { deleteTempImage } from '../modules/image'
+import { deleteTempImage } from '../redux/actions/image'
 
 class Uploader extends React.Component {
   constructor(props) {

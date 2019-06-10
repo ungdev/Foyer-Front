@@ -20,7 +20,15 @@ export const fetchUsers = () => {
           'X-Date': moment().format()
         }
       })
-      dispatch({ type: SET_USERS, users: res.data })
+      dispatch({
+        type: SET_USERS,
+        users: res.data.map(user => {
+          return {
+            ...user,
+            admin: user.permissions.findIndex(u => u === 'admin') !== -1
+          }
+        })
+      })
     } catch (err) {
       errorHandler(err, dispatch)
     }
@@ -44,7 +52,15 @@ export const setAdmin = id => {
           }
         }
       )
-      dispatch({ type: SET_ADMIN, id })
+
+      let users = getState().admin.users.map(user => {
+        if (user.id !== id) return user
+        let { permissions } = user
+        if (!permissions) permissions = []
+        permissions.push('admin')
+        return { ...user, permissions, admin: true }
+      })
+      dispatch({ type: SET_ADMIN, users })
 
       dispatch(
         notifActions.notifSend({
@@ -71,7 +87,14 @@ export const removeAdmin = id => {
           'X-Date': moment().format()
         }
       })
-      dispatch({ type: REMOVE_ADMIN, id })
+
+      const users = getState().admin.users.map(user => {
+        if (user.id !== id) return user
+        let { permissions } = user
+        permissions = permissions.filter(p => p !== 'admin')
+        return { ...user, permissions, admin: false }
+      })
+      dispatch({ type: REMOVE_ADMIN, users })
 
       dispatch(
         notifActions.notifSend({

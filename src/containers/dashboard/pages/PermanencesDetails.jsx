@@ -15,6 +15,25 @@ class PermanencesDetails extends React.Component {
       assoModalVisible: false
     }
   }
+  static getDerivedStateFromProps(nextProps, nextState) {
+    const { perms, location } = nextProps
+    if (!perms || !location.pathname) return null
+    const creneau = location.pathname.split('/perms/')[1]
+    if (!creneau) return null
+    const [day, hours] = creneau.split(' ')
+    const [start, end] = hours.split('/')
+    const perm = perms.find(
+      p => p.start === start && p.end === end && p.day === day
+    )
+    if (!nextState.perm) {
+      return { ...nextState, perm }
+    }
+    if (perm.assos && !nextState.perm.assos) return { ...nextState, perm }
+    if (perm.assos && perm.assos.length !== nextState.perm.assos.length)
+      return { ...nextState, perm }
+
+    return null
+  }
   addAsso = perm => {
     const form = this.formRef.props.form
     form.validateFields((err, values) => {
@@ -69,7 +88,10 @@ class PermanencesDetails extends React.Component {
         <Divider />
         <h1>
           Permanence du {day} {hours} {perm && perm.name}{' '}
-          <Button type='primary' onClick={() => this.setState({ createDrawerVisible: true, perm })}>
+          <Button
+            type='primary'
+            onClick={() => this.setState({ createDrawerVisible: true, perm })}
+          >
             Modifier
           </Button>
         </h1>

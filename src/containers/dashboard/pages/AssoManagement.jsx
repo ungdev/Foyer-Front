@@ -3,8 +3,10 @@ import { Card, Avatar, Spin } from 'antd'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import './styles/asso.css'
+import DiapoImage from './components/DiapoImage'
 
 class AssoManagement extends React.Component {
+  addImage = image => this.setState({ image })
   render() {
     const { login, assos, allasso } = this.props
     const isInAsso = assos.find(a => a.login === login)
@@ -29,6 +31,7 @@ class AssoManagement extends React.Component {
         >
           <p>{asso.descriptionShort}</p>
         </Card>
+        <DiapoImage asso={asso} />
       </React.Fragment>
     )
   }
