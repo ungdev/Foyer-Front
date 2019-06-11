@@ -1,7 +1,7 @@
 import { SET_USERS, SET_ADMIN, REMOVE_ADMIN } from '../actions/admin'
 import { SET_TOKEN } from '../actions/login'
 import { SET_TWEETS } from '../actions/socketio'
-import { SET_USER, SET_USER_ASSOS } from '../actions/user'
+import { SET_USER, SET_USER_ASSOS, SET_ETUS } from '../actions/user'
 import { SET_ASSOS, UPDATE_ASSO } from '../actions/asso'
 import { SET_PERMS, ADD_PERM, EDIT_PERM } from '../actions/perm'
 
@@ -70,7 +70,8 @@ export const socketio = (
 export const user = (
   state = {
     user: null,
-    assos: []
+    assos: [],
+    etus: []
   },
   action
 ) => {
@@ -85,7 +86,11 @@ export const user = (
         ...state,
         assos: action.assos
       }
-
+    case SET_ETUS:
+      return {
+        ...state,
+        etus: action.etus
+      }
     default:
       return state
   }

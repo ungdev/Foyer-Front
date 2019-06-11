@@ -86,8 +86,37 @@ export const addAssoToPerm = (id, login) => {
       const asso = assos.find(a => a.login === login)
       const perms = getState().perm.perms.slice()
       const index = perms.findIndex(p => p.id === id)
-      if(!perms[index].orgas) perms[index].orgas = []
+      if (!perms[index].orgas) perms[index].orgas = []
       perms[index].orgas.push(asso)
+      dispatch({ type: EDIT_PERM, perms })
+    } catch (err) {
+      errorHandler(err, dispatch)
+    }
+  }
+}
+
+export const addEtuToPerm = (id, login) => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      const res = await axios.post(
+        `perms/${id}/etus`,
+        { login },
+        {
+          headers: {
+            Authorization: `Basic ${authToken}`,
+            'X-Date': moment().format()
+          }
+        }
+      )
+      const etu = res.data
+      const perms = getState().perm.perms.slice()
+      const index = perms.findIndex(p => p.id === id)
+      if (!perms[index].Members) perms[index].Members = []
+      perms[index].Members.push(etu)
       dispatch({ type: EDIT_PERM, perms })
     } catch (err) {
       errorHandler(err, dispatch)

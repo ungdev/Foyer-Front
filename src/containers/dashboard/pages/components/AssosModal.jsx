@@ -11,7 +11,7 @@ class AssosModal extends React.Component {
       <Modal
         visible={visible}
         title='Ajouter une association'
-        okText='Create'
+        okText='Ajouter'
         onCancel={onCancel}
         onOk={onCreate}
       >

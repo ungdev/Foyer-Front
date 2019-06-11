@@ -17,7 +17,6 @@ class PermPopover extends React.Component {
         <p>Content</p>
       </div>
     )
-    console.log(this.props.creneau)
     const name = this.props.perm.name || this.getOrgas() || ''
     return (
       <Popover content={content} title={name} trigger='hover'>

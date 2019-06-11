@@ -11,7 +11,6 @@ class Permanences extends React.Component {
     props.fetchPerms()
   }
   render() {
-    console.log(this.props.perms)
     let rows = [
       {
         displayHour: '9h30/10h',
@@ -71,12 +70,10 @@ class Permanences extends React.Component {
     ]
     this.props.perms.forEach(perm => {
       const index = rows.findIndex(row => row.start === perm.start)
-      console.log(index, perm, rows)
       if (index !== -1) {
         rows[index].perms[perm.day] = perm
       }
     })
-    console.log(rows)
     return (
       <div>
         <Row gutter={2} className='perms-header'>
@@ -112,7 +109,10 @@ class Permanences extends React.Component {
             </Col>
             {Object.keys(row.perms).map((day, index) => (
               <Col span={4} key={index}>
-                <PermPopover perm={row.perms[day]} creneau={day + ' ' + row.displayHour} />
+                <PermPopover
+                  perm={row.perms[day]}
+                  creneau={day + ' ' + row.displayHour}
+                />
               </Col>
             ))}
           </Row>

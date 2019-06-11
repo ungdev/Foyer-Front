@@ -1,10 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchPerms, addAssoToPerm } from '../../../redux/actions/perm'
+import {
+  fetchPerms,
+  addAssoToPerm,
+  addEtuToPerm
+} from '../../../redux/actions/perm'
 import { push } from 'react-router-redux'
 import { Button, Spin, Divider, List, Avatar, Skeleton } from 'antd'
 import PermDrawer from './components/PermDrawer'
 import AssosModal from './components/AssosModal'
+import EtusModal from './components/EtusModal'
 
 class PermanencesDetails extends React.Component {
   constructor(props) {
@@ -12,7 +17,8 @@ class PermanencesDetails extends React.Component {
     props.fetchPerms()
     this.state = {
       createDrawerVisible: false,
-      assoModalVisible: false
+      assoModalVisible: false,
+      etuModalVisible: false
     }
   }
   static getDerivedStateFromProps(nextProps, nextState) {
@@ -35,7 +41,7 @@ class PermanencesDetails extends React.Component {
     return null
   }
   addAsso = perm => {
-    const form = this.formRef.props.form
+    const form = this.assoFormRef.props.form
     form.validateFields((err, values) => {
       if (err) {
         return
@@ -46,15 +52,33 @@ class PermanencesDetails extends React.Component {
       this.setState({ assoModalVisible: false })
     })
   }
+  addEtu = perm => {
+    const form = this.etuFormRef.props.form
+    form.validateFields((err, values) => {
+      if (err) {
+        return
+      }
+
+      this.props.addEtuToPerm(perm.id, values.etu)
+      form.resetFields()
+      this.setState({ etuModalVisible: false })
+    })
+  }
   openAssoModal = () => {
     this.setState({ assoModalVisible: true })
+  }
+  openEtuModal = () => {
+    this.setState({ etuModalVisible: true })
   }
   createPerm = () => {
     this.setState({ createDrawerVisible: true })
   }
 
-  saveFormRef = formRef => {
-    this.formRef = formRef
+  saveAssoFormRef = formRef => {
+    this.assoFormRef = formRef
+  }
+  saveEtuFormRef = formRef => {
+    this.etuFormRef = formRef
   }
 
   render() {
@@ -77,10 +101,16 @@ class PermanencesDetails extends React.Component {
           onClose={() => this.setState({ createDrawerVisible: false })}
         />
         <AssosModal
-          wrappedComponentRef={this.saveFormRef}
+          wrappedComponentRef={this.saveAssoFormRef}
           visible={this.state.assoModalVisible}
           onCancel={() => this.setState({ assoModalVisible: false })}
           onCreate={() => this.addAsso(perm)}
+        />
+        <EtusModal
+          wrappedComponentRef={this.saveEtuFormRef}
+          visible={this.state.etuModalVisible}
+          onCancel={() => this.setState({ etuModalVisible: false })}
+          onCreate={() => this.addEtu(perm)}
         />
         <Button type='primary' onClick={this.props.goToPerms}>
           Retour au tableau de perm
@@ -88,12 +118,14 @@ class PermanencesDetails extends React.Component {
         <Divider />
         <h1>
           Permanence du {day} {hours} {perm && perm.name}{' '}
-          <Button
-            type='primary'
-            onClick={() => this.setState({ createDrawerVisible: true, perm })}
-          >
-            Modifier
-          </Button>
+          {perm && (
+            <Button
+              type='primary'
+              onClick={() => this.setState({ createDrawerVisible: true, perm })}
+            >
+              Modifier
+            </Button>
+          )}
         </h1>
         {!perm && (
           <Button type='primary' onClick={this.createPerm}>
@@ -142,6 +174,34 @@ class PermanencesDetails extends React.Component {
             Ajouter une association
           </Button>
         )}
+        {perm && perm.Members && perm.Members.length > 0 && (
+          <List
+            header={<div>Liste des étudiants membres de la permanence :</div>}
+            bordered
+            dataSource={perm.Members}
+            renderItem={item => {
+              return (
+                <List.Item actions={[<a>supprimer</a>]}>
+                  <List.Item.Meta
+                    avatar={
+                      <Avatar
+                        src={`${process.env.REACT_APP_API}/etus/${
+                          item.id
+                        }/image`}
+                      />
+                    }
+                    title={item.full_name}
+                  />
+                </List.Item>
+              )
+            }}
+          />
+        )}
+        {perm && (
+          <Button type='primary' onClick={this.openEtuModal}>
+            Ajouter un étudiant
+          </Button>
+        )}
       </div>
     )
   }
@@ -155,7 +215,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchPerms: () => dispatch(fetchPerms()),
   goToPerms: () => dispatch(push('/perms')),
-  addAssoToPerm: (id, asso) => dispatch(addAssoToPerm(id, asso))
+  addAssoToPerm: (id, asso) => dispatch(addAssoToPerm(id, asso)),
+  addEtuToPerm: (id, login) => dispatch(addEtuToPerm(id, login))
 })
 
 export default connect(
