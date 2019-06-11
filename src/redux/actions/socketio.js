@@ -6,7 +6,9 @@ export const SET_TWEETS = 'socketio/SET_TWEETS'
 export const startSocketIO = () => {
   return async dispatch => {
     try {
-      let socket = io.connect(process.env.REACT_APP_API.split('/api/')[0])
+      let socket = io.connect(process.env.REACT_APP_API.split('/api/v1')[0], {
+        path: '/api/socket.io'
+      })
       socket.on('tweets', tweets => {
         dispatch({ type: SET_TWEETS, payload: tweets })
       })
