@@ -6,7 +6,7 @@ import './login.css'
 
 class Login extends React.Component {
   login = () => {
-    window.location = `${process.env.REACT_APP_API}/etuutt/url`
+    window.location.href = `${process.env.REACT_APP_API}/etuutt/url`
   }
   render() {
     return (

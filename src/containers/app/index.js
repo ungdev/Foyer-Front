@@ -42,7 +42,7 @@ class App extends React.Component {
               component={Login}
             />
           )}
-          <Redirect from='*' to='/' />
+          <Redirect from='*' to={process.env.REACT_APP_BASEURL} />
         </Switch>
       </div>
     )
