@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import {
   fetchPerms,
   addAssoToPerm,
-  addEtuToPerm
+  addEtuToPerm,
+  deleteAssoFromPerm,
+  deleteEtuFromPerm
 } from '../../../redux/actions/perm'
 import { push } from 'react-router-redux'
 import { Button, Spin, Divider, List, Avatar, Skeleton } from 'antd'
@@ -140,7 +142,17 @@ class PermanencesDetails extends React.Component {
             renderItem={item => {
               const asso = assos.find(a => a.login === item.login)
               return (
-                <List.Item actions={[<a>supprimer</a>]}>
+                <List.Item
+                  actions={[
+                    <a
+                      onClick={() =>
+                        this.props.deleteAssoFromPerm(perm.id, asso.login)
+                      }
+                    >
+                      supprimer
+                    </a>
+                  ]}
+                >
                   <Skeleton avatar loading={asso ? false : true} active>
                     {asso && (
                       <List.Item.Meta
@@ -181,7 +193,17 @@ class PermanencesDetails extends React.Component {
             dataSource={perm.Members}
             renderItem={item => {
               return (
-                <List.Item actions={[<a>supprimer</a>]}>
+                <List.Item
+                  actions={[
+                    <a
+                      onClick={() =>
+                        this.props.deleteEtuFromPerm(perm.id, item.login)
+                      }
+                    >
+                      supprimer
+                    </a>
+                  ]}
+                >
                   <List.Item.Meta
                     avatar={
                       <Avatar
@@ -216,7 +238,9 @@ const mapDispatchToProps = dispatch => ({
   fetchPerms: () => dispatch(fetchPerms()),
   goToPerms: () => dispatch(push('/perms')),
   addAssoToPerm: (id, asso) => dispatch(addAssoToPerm(id, asso)),
-  addEtuToPerm: (id, login) => dispatch(addEtuToPerm(id, login))
+  addEtuToPerm: (id, login) => dispatch(addEtuToPerm(id, login)),
+  deleteAssoFromPerm: (id, login) => dispatch(deleteAssoFromPerm(id, login)),
+  deleteEtuFromPerm: (id, login) => dispatch(deleteEtuFromPerm(id, login))
 })
 
 export default connect(

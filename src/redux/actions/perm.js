@@ -124,6 +124,54 @@ export const addEtuToPerm = (id, login) => {
   }
 }
 
+export const deleteAssoFromPerm = (id, login) => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      await axios.delete(`assos/${login}/perm`, {
+        headers: {
+          Authorization: `Basic ${authToken}`,
+          'X-Date': moment().format()
+        }
+      })
+      const perms = getState().perm.perms.slice()
+      const index = perms.findIndex(p => p.id === id)
+      if (!perms[index].orgas) perms[index].orgas = []
+      perms[index].orgas = perms[index].orgas.filter(o => o.login !== login)
+      dispatch({ type: EDIT_PERM, perms })
+    } catch (err) {
+      errorHandler(err, dispatch)
+    }
+  }
+}
+
+export const deleteEtuFromPerm = (id, login) => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      await axios.delete(`perms/${id}/etus/${login}`, {
+        headers: {
+          Authorization: `Basic ${authToken}`,
+          'X-Date': moment().format()
+        }
+      })
+      const perms = getState().perm.perms.slice()
+      const index = perms.findIndex(p => p.id === id)
+      if (!perms[index].Members) perms[index].Members = []
+      perms[index].Members = perms[index].Members.filter(e => e.login !== login)
+      dispatch({ type: EDIT_PERM, perms })
+    } catch (err) {
+      errorHandler(err, dispatch)
+    }
+  }
+}
+
 const editPermAction = (state, perm) => {
   const perms = state.perm.perms.slice()
   const index = perms.findIndex(p => p.id === perm.id)
