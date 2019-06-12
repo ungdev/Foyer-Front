@@ -11,8 +11,8 @@ class AssoManagement extends React.Component {
     const { login, assos, allasso } = this.props
     const isInAsso = assos.find(a => a.login === login)
     if (!isInAsso) return <Redirect to='/' />
-    const asso = allasso.find(a => a.login === login)
-    console.log('asso:', asso)
+    const asso = { ...allasso.find(a => a.login === login), ...isInAsso }
+    console.log('asso:', asso) // @fred toutes les informations d'une asso se trouvent dans la variable asso ici
     if (!asso) return <Spin />
     return (
       <React.Fragment>

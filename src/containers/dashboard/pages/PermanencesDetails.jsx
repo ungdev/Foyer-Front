@@ -98,8 +98,9 @@ class PermanencesDetails extends React.Component {
         <PermDrawer
           visible={this.state.createDrawerVisible}
           perm={this.state.perm}
-          creneau={creneau}
           day={day}
+          start={start}
+          end={end}
           onClose={() => this.setState({ createDrawerVisible: false })}
         />
         <AssosModal
@@ -181,11 +182,12 @@ class PermanencesDetails extends React.Component {
             }}
           />
         )}
-        {perm && (
-          <Button type='primary' onClick={this.openAssoModal}>
-            Ajouter une association
-          </Button>
-        )}
+        {perm &&
+          (perm.Members && perm.Members.length > 0 ? null : (
+            <Button type='primary' onClick={this.openAssoModal}>
+              Ajouter une association
+            </Button>
+          ))}
         {perm && perm.Members && perm.Members.length > 0 && (
           <List
             header={<div>Liste des étudiants membres de la permanence :</div>}
@@ -219,11 +221,12 @@ class PermanencesDetails extends React.Component {
             }}
           />
         )}
-        {perm && (
-          <Button type='primary' onClick={this.openEtuModal}>
-            Ajouter un étudiant
-          </Button>
-        )}
+        {perm &&
+          (perm.orgas && perm.orgas.length > 0 ? null : (
+            <Button type='primary' onClick={this.openEtuModal}>
+              Ajouter un étudiant
+            </Button>
+          ))}
       </div>
     )
   }
