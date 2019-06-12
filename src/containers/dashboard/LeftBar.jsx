@@ -42,7 +42,7 @@ class LeftBar extends React.Component {
     const { admin } = user
     return (
       <Sider breakpoint='lg' collapsedWidth='0' width={250} theme='dark'>
-        <Link to={'/'}>
+        <Link to={'/home'}>
           <img src={logo} style={{ width: '100%' }} alt='' />
         </Link>
 
@@ -56,13 +56,13 @@ class LeftBar extends React.Component {
         >
           <Menu.Item key='home'>
             <Link to={'/'}>
-              <Icon type='appstore' />
+              <Icon type='coffee' />
               <span>Accueil</span>
             </Link>
           </Menu.Item>
           <Menu.Item key='perms'>
             <Link to={'/perms'}>
-              <Icon type='appstore' />
+              <Icon type='table' />
               <span>Tableau de perms</span>
             </Link>
           </Menu.Item>

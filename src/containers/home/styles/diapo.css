@@ -1,0 +1,34 @@
+.ant-carousel {
+  height: 100%;
+}
+.caoursel {
+  height: 100%;
+}
+.ant-carousel .slick-slider {
+  background-color: black;
+  height: 100%;
+}
+.ant-carousel .slick-slide {
+  height: 100%;
+}
+.ant-carousel .slick-list {
+  height: 100%;
+}
+.ant-carousel .slick-track {
+  height: 100%;
+  width: 100%;
+}
+
+.ant-carousel .slick-slide div {
+  height: 100%;
+}
+
+.ant-carousel .slick-slide img {
+  max-height: 100%;
+  max-width: 100%;
+}
+.carousel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

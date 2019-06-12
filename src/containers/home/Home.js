@@ -1,7 +1,7 @@
 import React from 'react'
 import './styles/home.css'
 import Logo from './components/Logo'
-import { Carousel } from 'antd'
+import Diapo from './components/Diapo'
 
 class Home extends React.Component {
   render() {
@@ -9,20 +9,7 @@ class Home extends React.Component {
       <div className='home'>
         <div className='home-left'>
           <div className='home-diapo'>
-            <Carousel dots={false}>
-              <div>
-                <h3>1</h3>
-              </div>
-              <div>
-                <h3>2</h3>
-              </div>
-              <div>
-                <h3>3</h3>
-              </div>
-              <div>
-                <h3>4</h3>
-              </div>
-            </Carousel>
+            <Diapo/>
           </div>
           <div className='home-spotify'>Spotify</div>
         </div>
