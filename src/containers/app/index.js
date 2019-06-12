@@ -33,7 +33,6 @@ class App extends React.Component {
           />
           {this.props.token ? (
             <Route
-              exact
               path={process.env.REACT_APP_BASEURL}
               component={Dashboard}
             />
