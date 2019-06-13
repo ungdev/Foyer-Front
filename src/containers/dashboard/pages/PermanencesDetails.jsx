@@ -142,6 +142,7 @@ class PermanencesDetails extends React.Component {
             dataSource={perm.orgas}
             renderItem={item => {
               const asso = assos.find(a => a.login === item.login)
+              console.log(asso)
               return (
                 <List.Item
                   actions={[
