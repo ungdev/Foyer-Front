@@ -84,7 +84,7 @@ class PermanencesDetails extends React.Component {
   }
 
   render() {
-    const { perms, location, assos } = this.props
+    const { perms, location, assos, admin } = this.props
     if (!perms || !location.pathname) return <Spin />
     const creneau = location.pathname.split('/perms/')[1]
     if (!creneau) return <Spin />
@@ -130,7 +130,7 @@ class PermanencesDetails extends React.Component {
             </Button>
           )}
         </h1>
-        {!perm && (
+        {!perm && admin && (
           <Button type='primary' onClick={this.createPerm}>
             Créer cette permanence
           </Button>
@@ -232,6 +232,7 @@ class PermanencesDetails extends React.Component {
   }
 }
 const mapStateToProps = state => ({
+  admin: state.user.user.admin,
   assos: state.asso.assos,
   perms: state.perm.perms,
   location: state.routing.location
