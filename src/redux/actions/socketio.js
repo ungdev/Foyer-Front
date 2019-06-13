@@ -3,6 +3,7 @@ import errorHandler from '../../lib/errorHandler'
 
 export const SET_TWEETS = 'socketio/SET_TWEETS'
 export const SET_DIAPO_IMAGES = 'socketio/SET_DIAPO_IMAGES'
+export const SET_SPOTIFY = 'socketio/SET_SPOTIFY'
 
 export const startSocketIO = () => {
   return async dispatch => {
@@ -11,10 +12,13 @@ export const startSocketIO = () => {
         path: '/api/socket.io'
       })
       socket.on('tweets', tweets => {
-        dispatch({ type: SET_TWEETS, payload: tweets })
+        dispatch({ type: SET_TWEETS, tweets })
       })
       socket.on('diapoImages', images => {
-        dispatch({ type: SET_DIAPO_IMAGES, images: images })
+        dispatch({ type: SET_DIAPO_IMAGES, images })
+      })
+      socket.on('spotify', song => {
+        dispatch({ type: SET_SPOTIFY, song })
       })
     } catch (err) {
       errorHandler(err, dispatch)

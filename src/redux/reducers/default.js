@@ -1,6 +1,6 @@
 import { SET_USERS, SET_ADMIN, REMOVE_ADMIN } from '../actions/admin'
 import { SET_TOKEN } from '../actions/login'
-import { SET_TWEETS, SET_DIAPO_IMAGES } from '../actions/socketio'
+import { SET_TWEETS, SET_DIAPO_IMAGES, SET_SPOTIFY } from '../actions/socketio'
 import { SET_USER, SET_USER_ASSOS, SET_ETUS } from '../actions/user'
 import { SET_ASSOS, UPDATE_ASSO } from '../actions/asso'
 import { SET_PERMS, ADD_PERM, EDIT_PERM } from '../actions/perm'
@@ -61,12 +61,17 @@ export const socketio = (
     case SET_TWEETS:
       return {
         ...state,
-        tweets: action.payload
+        tweets: action.tweets
       }
     case SET_DIAPO_IMAGES:
       return {
         ...state,
         diapoImages: action.images
+      }
+    case SET_SPOTIFY:
+      return {
+        ...state,
+        spotify: action.song
       }
     default:
       return state

@@ -2,6 +2,7 @@ import React from 'react'
 import './styles/home.css'
 import Logo from './components/Logo'
 import Diapo from './components/Diapo'
+import Spotify from './components/Spotify'
 
 class Home extends React.Component {
   render() {
@@ -9,9 +10,11 @@ class Home extends React.Component {
       <div className='home'>
         <div className='home-left'>
           <div className='home-diapo'>
-            <Diapo/>
+            <Diapo />
           </div>
-          <div className='home-spotify'>Spotify</div>
+          <div className='home-spotify'>
+            <Spotify />
+          </div>
         </div>
         <div className='home-right'>
           <div className='home-meteo'>meteo</div>
