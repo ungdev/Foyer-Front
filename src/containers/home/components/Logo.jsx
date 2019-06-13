@@ -29,7 +29,7 @@ class Logo extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  logos: state.asso.logos
+  logos: state.socketio.logos
 })
 const mapDispatchToProps = dispatch => ({
   fetchLogos: () => dispatch(fetchLogos())
