@@ -8,6 +8,8 @@ import Permanences from './pages/Permanences'
 import PermanencesDetails from './pages/PermanencesDetails'
 import UsersManagement from './pages/UserManagement'
 import AssoManagement from './pages/AssoManagement'
+import SpotifyManagement from './pages/SpotifyManagement'
+import SpotifyError from './pages/SpotifyError'
 
 const baseUrl = process.env.REACT_APP_BASEURL
 
@@ -30,6 +32,8 @@ class Dashboard extends React.Component {
         {admin && (
           <React.Fragment>
             <Route path={baseUrl + 'users'} exact component={UsersManagement} />
+            <Route path={baseUrl + 'spotify'} exact component={SpotifyManagement} />
+            <Route path={baseUrl + 'spotify/error'} exact component={SpotifyError} />
           </React.Fragment>
         )}
 
