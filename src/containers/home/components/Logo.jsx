@@ -17,7 +17,7 @@ class Logo extends React.Component {
           {logos &&
             logos.map((logo, index) => (
               <div key={index}>
-                <div className='carousel-container'>
+                <div className='logo-carousel-container'>
                   <img src={'https://etu.utt.fr' + logo} alt='' />
                 </div>
               </div>

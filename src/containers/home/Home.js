@@ -9,6 +9,7 @@ import LogosMarquee from './components/LogosMarquee'
 class Home extends React.Component {
   render() {
     const { song } = this.props
+    const logoWidth = window.innerWidth / 5
     return (
       <div className='home'>
         <div className='home-left'>
@@ -21,7 +22,10 @@ class Home extends React.Component {
         </div>
         <div className='home-right'>
           <div className='home-meteo'>meteo</div>
-          <div className='home-logo'>
+          <div
+            className='home-logo'
+            style={{ width: logoWidth, height: logoWidth }}
+          >
             <Logo />
           </div>
         </div>

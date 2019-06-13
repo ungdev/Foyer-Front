@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Carousel } from 'antd'
-import '../styles/logo.css'
 import { fetchLogos } from '../../../redux/actions/asso'
+import Marquee from '../../../components/Marquee'
+import '../styles/logo-marquee.css'
 
 class Logo extends React.Component {
   constructor(props) {
@@ -13,16 +13,13 @@ class Logo extends React.Component {
     const { logos } = this.props
     return (
       <div className='logo-marquee-container'>
-        <Carousel dots={false} autoplay>
-          {logos &&
-            logos.map((logo, index) => (
-              <div key={index}>
-                <div className='carousel-container'>
-                  <img src={'https://etu.utt.fr' + logo} alt='' />
-                </div>
-              </div>
-            ))}
-        </Carousel>
+        <Marquee>
+          {logos.map((logo, index) => (
+            <div key={index}>
+              <img src={'https://etu.utt.fr' + logo} alt='' />
+            </div>
+          ))}
+        </Marquee>
       </div>
     )
   }

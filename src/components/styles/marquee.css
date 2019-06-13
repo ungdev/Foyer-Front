@@ -1,0 +1,29 @@
+.custom-marquee {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.custom-marquee > * {
+  position: absolute;
+  top: 5px;
+}
+.custom-marquee > div {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+}
+.custom-marquee > div > div {
+  height: 90%;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.custom-marquee > div > div > img {
+  max-height: 100%;
+}

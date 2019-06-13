@@ -36,7 +36,7 @@ class ProgressBar extends React.Component {
   }
   updateTime = () => {
     this.interval = setInterval(() => {
-      if (this.state.time <= this.props.totalTime && this.props.isPlaying)
+      if (this.state.time < this.props.totalTime && this.props.isPlaying)
         this.setState({ time: this.state.time + 1 })
     }, 1000)
   }
