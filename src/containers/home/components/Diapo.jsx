@@ -12,7 +12,6 @@ class Diapo extends React.Component {
         dots={false}
         autoplay
         autoplaySpeed={5000}
-        autoclassName='diapo'
       >
         {images &&
           images.map((image, index) => (

@@ -4,8 +4,10 @@
 .caoursel {
   height: 100%;
 }
-.ant-carousel .slick-slider {
+.home-diapo .ant-carousel .slick-slider {
   background-color: black;
+}
+.ant-carousel .slick-slider {
   height: 100%;
 }
 .ant-carousel .slick-slide {

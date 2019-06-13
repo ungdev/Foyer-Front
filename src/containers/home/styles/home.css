@@ -21,13 +21,13 @@
   height: 20%;
 }
 .home-logo {
-  background-color: yellow;
+  background-color: blue;
   width: 100%;
+  padding: 8px;
 }
 .home-logo:after {
-  content: "";
+  content: '';
   display: block;
-  padding-bottom: 100%;
 }
 
 .home-meteo {

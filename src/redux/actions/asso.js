@@ -3,6 +3,7 @@ import errorHandler from '../../lib/errorHandler'
 import moment from 'moment'
 
 export const SET_ASSOS = 'asso/SET_ASSOS'
+export const SET_LOGOS = 'asso/SET_LOGOS'
 export const UPDATE_ASSO = 'asso/UPDATE_ASSO'
 
 export const fetchAllAssos = () => {
@@ -78,4 +79,15 @@ const updateAsso = (state, asso) => {
   const index = assos.findIndex(a => a.id === asso.id)
   assos[index] = asso
   return { type: UPDATE_ASSO, assos }
+}
+
+export const fetchLogos = () => {
+  return async (dispatch, getState) => {
+    try {
+      const res = await axios.get('logos')
+      dispatch({ type: SET_LOGOS, logos: res.data })
+    } catch (err) {
+      errorHandler(err, dispatch)
+    }
+  }
 }
