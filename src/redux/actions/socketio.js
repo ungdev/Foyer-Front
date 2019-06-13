@@ -5,6 +5,7 @@ export const SET_TWEETS = 'socketio/SET_TWEETS'
 export const SET_DIAPO_IMAGES = 'socketio/SET_DIAPO_IMAGES'
 export const SET_SPOTIFY = 'socketio/SET_SPOTIFY'
 export const SET_ASSO_LOGOS = 'socketio/SET_ASSO_LOGOS'
+export const SET_WEATHER = 'socketio/SET_WEATHER'
 
 export const startSocketIO = () => {
   return async dispatch => {
@@ -23,6 +24,9 @@ export const startSocketIO = () => {
       })
       socket.on('spotify', song => {
         dispatch({ type: SET_SPOTIFY, song })
+      })
+      socket.on('weather', weather => {
+        dispatch({ type: SET_WEATHER, weather })
       })
     } catch (err) {
       errorHandler(err, dispatch)

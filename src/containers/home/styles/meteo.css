@@ -1,4 +1,46 @@
 .meteo-container {
-  background-color: chartreuse;
+  background-color: white;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.meteo-top,
+.meteo-bottom {
+  height: 50%;
+  width: 100%;
+}
+.meteo-bottom {
+  display: flex;
+  flex-direction: row;
+}
+.meteo-left,
+.meteo-right {
+  width: 50%;
+  height: 100%;
+}
+
+.meteo-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.meteo-item > img {
+  width: 80%;
+}
+.meteo-temp {
+  font-size: 30px;
+  font-weight: bold;
+}
+.meteo-time {
+  font-size: 15px;
+}
+.big .meteo-temp {
+  font-size: 50px;
+}
+.big .meteo-time {
+  font-size: 20px;
 }

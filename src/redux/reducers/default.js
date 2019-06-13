@@ -4,7 +4,8 @@ import {
   SET_TWEETS,
   SET_DIAPO_IMAGES,
   SET_SPOTIFY,
-  SET_ASSO_LOGOS
+  SET_ASSO_LOGOS,
+  SET_WEATHER
 } from '../actions/socketio'
 import { SET_USER, SET_USER_ASSOS, SET_ETUS } from '../actions/user'
 import { SET_ASSOS, UPDATE_ASSO, SET_LOGOS } from '../actions/asso'
@@ -58,7 +59,8 @@ export const login = (
 export const socketio = (
   state = {
     tweets: [],
-    diapoImages: []
+    diapoImages: [],
+    weather: []
   },
   action
 ) => {
@@ -82,6 +84,11 @@ export const socketio = (
       return {
         ...state,
         logos: action.logos
+      }
+    case SET_WEATHER:
+      return {
+        ...state,
+        weather: action.weather
       }
     default:
       return state

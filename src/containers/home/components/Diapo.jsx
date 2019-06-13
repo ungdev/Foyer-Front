@@ -6,7 +6,6 @@ import { Carousel } from 'antd'
 class Diapo extends React.Component {
   render() {
     const { images } = this.props
-    console.log(images)
     return (
       <Carousel
         dots={false}
