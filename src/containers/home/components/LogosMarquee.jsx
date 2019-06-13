@@ -12,7 +12,7 @@ class Logo extends React.Component {
   render() {
     const { logos } = this.props
     return (
-      <div className='logo-container'>
+      <div className='logo-marquee-container'>
         <Carousel dots={false} autoplay>
           {logos &&
             logos.map((logo, index) => (

@@ -1,11 +1,14 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import './styles/home.css'
 import Logo from './components/Logo'
 import Diapo from './components/Diapo'
 import Spotify from './components/Spotify'
+import LogosMarquee from './components/LogosMarquee'
 
 class Home extends React.Component {
   render() {
+    const { song } = this.props
     return (
       <div className='home'>
         <div className='home-left'>
@@ -13,7 +16,7 @@ class Home extends React.Component {
             <Diapo />
           </div>
           <div className='home-spotify'>
-            <Spotify />
+            {song && song.is_playing ? <Spotify /> : <LogosMarquee />}
           </div>
         </div>
         <div className='home-right'>
@@ -26,5 +29,10 @@ class Home extends React.Component {
     )
   }
 }
-
-export default Home
+const mapStateToProps = state => ({
+  song: state.socketio.spotify
+})
+export default connect(
+  mapStateToProps,
+  null
+)(Home)

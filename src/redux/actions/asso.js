@@ -73,14 +73,6 @@ export const deleteImageToAsso = id => {
     }
   }
 }
-
-const updateAsso = (state, asso) => {
-  const assos = state.asso.assos.slice()
-  const index = assos.findIndex(a => a.id === asso.id)
-  assos[index] = asso
-  return { type: UPDATE_ASSO, assos }
-}
-
 export const fetchLogos = () => {
   return async (dispatch, getState) => {
     try {
@@ -90,4 +82,35 @@ export const fetchLogos = () => {
       errorHandler(err, dispatch)
     }
   }
+}
+
+export const modifyImageDisplay = (id, displayImage) => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      const res = await axios.put(
+        `/assos/${id}`,
+        { displayImage },
+        {
+          headers: {
+            Authorization: `Basic ${authToken}`,
+            'X-Date': moment().format()
+          }
+        }
+      )
+      dispatch(updateAsso(getState(), res.data))
+    } catch (err) {
+      errorHandler(err, dispatch)
+    }
+  }
+}
+
+const updateAsso = (state, asso) => {
+  const assos = state.asso.assos.slice()
+  const index = assos.findIndex(a => a.id === asso.id)
+  assos[index] = asso
+  return { type: UPDATE_ASSO, assos }
 }

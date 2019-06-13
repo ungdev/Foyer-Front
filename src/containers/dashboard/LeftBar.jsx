@@ -106,6 +106,14 @@ class LeftBar extends React.Component {
               </Link>
             </Menu.Item>
           )}
+          {admin && (
+            <Menu.Item key='orgas'>
+              <Link to={'/orgas'}>
+                <Icon type='team' />
+                <span>Toutes les associations</span>
+              </Link>
+            </Menu.Item>
+          )}
           <Menu.Item key='logout' onClick={this.props.logout}>
             <Icon type='logout' />
             <span>Se déconnecter</span>

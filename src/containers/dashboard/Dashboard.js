@@ -8,6 +8,7 @@ import Permanences from './pages/Permanences'
 import PermanencesDetails from './pages/PermanencesDetails'
 import UsersManagement from './pages/UserManagement'
 import AssoManagement from './pages/AssoManagement'
+import OrgasManagement from './pages/OrgasManagement'
 import SpotifyManagement from './pages/SpotifyManagement'
 import SpotifyError from './pages/SpotifyError'
 
@@ -26,12 +27,13 @@ class Dashboard extends React.Component {
 
         {/* ASSOS ROUTES */}
         {assos.length > 0 && (
-          <Route path={baseUrl + 'assos/:login'} component={AssoManagement} />
+          <Route path={baseUrl + 'assos/:login'} exact component={AssoManagement} />
         )}
         {/* ADMIN ONLY ROUTES */}
         {admin && (
           <React.Fragment>
             <Route path={baseUrl + 'users'} exact component={UsersManagement} />
+            <Route path={baseUrl + 'orgas'} exact component={OrgasManagement} />
             <Route path={baseUrl + 'spotify'} exact component={SpotifyManagement} />
             <Route path={baseUrl + 'spotify/error'} exact component={SpotifyError} />
           </React.Fragment>
