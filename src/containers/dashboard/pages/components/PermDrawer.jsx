@@ -31,15 +31,6 @@ class PermDrawer extends React.Component {
     })
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.event && (!state.event || props.event.id !== state.event.id)) {
-      return {
-        event: props.event
-      }
-    }
-    return null
-  }
-
   render() {
     const { getFieldDecorator } = this.props.form
     const { perm } = this.props

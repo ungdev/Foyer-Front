@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import './styles/asso.css'
 import DiapoImage from './components/DiapoImage'
+import AssoAffiche from './components/AssoAffiche'
+import AssoMessage from './components/AssoMessage'
 
 class AssoManagement extends React.Component {
   tabList = [
@@ -18,6 +20,14 @@ class AssoManagement extends React.Component {
     {
       key: 'contact',
       tab: 'Contact'
+    },
+    {
+      key: 'affiches',
+      tab: 'Affiches'
+    },
+    {
+      key: 'messages',
+      tab: 'Messages'
     }
   ]
   contentList = {}
@@ -84,7 +94,9 @@ class AssoManagement extends React.Component {
           <a>{asso.website}</a>
         </p>
       ),
-      members: compositionAsso
+      members: compositionAsso,
+      affiches: <AssoAffiche />,
+      messages: <AssoMessage assoId={asso.id} />
     }
 
     if (!asso) return <Spin />

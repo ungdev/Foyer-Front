@@ -18,7 +18,6 @@ class AssoManagement extends React.Component {
   }
   render() {
     const { allasso } = this.props
-    console.log('allasso:', allasso)
     if (!allasso) return <Spin />
     const displayAsso = allasso.filter(this.filterAsso)
     return (

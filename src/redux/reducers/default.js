@@ -10,6 +10,7 @@ import {
 import { SET_USER, SET_USER_ASSOS, SET_ETUS } from '../actions/user'
 import { SET_ASSOS, UPDATE_ASSO, SET_LOGOS } from '../actions/asso'
 import { SET_PERMS, ADD_PERM, EDIT_PERM } from '../actions/perm'
+import { SET_AFFICHAGES, ADD_AFFICHAGE, EDIT_AFFICHAGE } from '../actions/affichage'
 
 export const admin = (
   state = {
@@ -169,6 +170,29 @@ export const perm = (
       return {
         ...state,
         perms: action.perms
+      }
+    default:
+      return state
+  }
+}
+export const affichage = (
+  state = {
+    affichages: []
+  },
+  action
+) => {
+  switch (action.type) {
+    case SET_AFFICHAGES:
+      return {
+        ...state,
+        affichages: action.affichages
+      }
+    case ADD_AFFICHAGE:
+      return { ...state, affichages: [...state.affichages, action.affichage] }
+    case EDIT_AFFICHAGE:
+      return {
+        ...state,
+        affichages: action.affichages
       }
     default:
       return state
