@@ -23,6 +23,8 @@ export default error => {
       return 'Une erreur est survenue'
     case 'expired_token':
       return 'Votre session a expiré, veuillez vous reconnecter'
+    case 'MISSING_PARAMS':
+      return 'Paramètres manquants'
     default:
       return error
   }

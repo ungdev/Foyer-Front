@@ -38,7 +38,7 @@ class AssoManagement extends React.Component {
 
   addImage = image => this.setState({ image })
   render() {
-    const { login, assos, allasso, admin } = this.props
+    const { login, assos, allasso } = this.props
     const isInAsso = assos.find(a => a.login === login)
     if (!isInAsso) return <Redirect to='/' />
     const asso = { ...allasso.find(a => a.login === login), ...isInAsso }
@@ -78,7 +78,13 @@ class AssoManagement extends React.Component {
     var compositionAsso = <ul>{membersUl}</ul>
 
     this.contentList = {
-      presentation: asso.descriptionShort,
+      presentation: (
+        <div>
+          <p>{asso.descriptionShort}</p>
+          <br />
+          <DiapoImage asso={asso} />
+        </div>
+      ),
       contact: (
         <p>
           <b>Président : </b>
@@ -95,7 +101,7 @@ class AssoManagement extends React.Component {
         </p>
       ),
       members: compositionAsso,
-      affiches: <AssoAffiche />,
+      affiches: <AssoAffiche assoId={asso.id} />,
       messages: <AssoMessage assoId={asso.id} />
     }
 
@@ -117,14 +123,11 @@ class AssoManagement extends React.Component {
           tabList={this.tabList}
           activeTabKey={this.state.key}
           onTabChange={key => {
-            console.log('selected:', key)
-            this.setState({ ['key']: key })
+            this.setState({ key })
           }}
         >
           {this.contentList[this.state.key]}
         </Card>
-        <br />
-        <DiapoImage asso={asso} />
       </React.Fragment>
     )
   }
@@ -133,8 +136,7 @@ class AssoManagement extends React.Component {
 const mapStateToProps = state => ({
   assos: state.user.assos,
   allasso: state.asso.assos,
-  login: state.routing.location.pathname.split('/assos/')[1],
-  admin: state.user.user.admin
+  login: state.routing.location.pathname.split('/assos/')[1]
 })
 
 const mapDispatchToProps = dispatch => ({})

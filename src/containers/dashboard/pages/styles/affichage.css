@@ -1,0 +1,18 @@
+.asso-affiche > .affiche-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.affiche-cover-container {
+  width: 272px;
+  height: 153px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.affiche-cover-container > img {
+  max-width: 267px;
+  max-height: 150px;
+}
+.asso-affiche > .affiche-list > .ant-card {
+  margin: 5px;
+}

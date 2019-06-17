@@ -7,7 +7,9 @@ class PermModal extends React.Component {
   render() {
     const { visible, onCancel, onCreate, form, affichage } = this.props
     let perms = this.props.perms.filter(perm => {
-      const found = (affichage && affichage.perms || []).find(p => p.id === perm.id)
+      const found = ((affichage && affichage.perms) || []).find(
+        p => p.id === perm.id
+      )
       return !found
     })
     const { getFieldDecorator } = form

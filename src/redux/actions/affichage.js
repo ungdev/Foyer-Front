@@ -33,6 +33,7 @@ export const createAffichage = (params, assoId) => {
       return
     }
     try {
+      console.log(params)
       const res = await axios.post(`assos/${assoId}/affichages`, params, {
         headers: {
           Authorization: `Basic ${authToken}`,
@@ -53,7 +54,7 @@ export const addPermToAffichage = (affichageId, permId) => {
       return
     }
     try {
-      const res = await axios.post(
+      await axios.post(
         `perms/${permId}/affichages`,
         { affichageId },
         {
@@ -130,7 +131,7 @@ export const deleteAffichage = id => {
       return
     }
     try {
-      const res = await axios.delete(`affichages/${id}`, {
+      await axios.delete(`affichages/${id}`, {
         headers: {
           Authorization: `Basic ${authToken}`,
           'X-Date': moment().format()

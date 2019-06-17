@@ -40,8 +40,10 @@ class AssoMessage extends React.Component {
 
   render() {
     const { visible, affichage } = this.state
-    const { affichages } = this.props
-    const messages = affichages.filter(affichage => !affichage.image)
+    const { affichages, assoId } = this.props
+    const messages = affichages
+      .filter(affichage => !affichage.image)
+      .filter(affichage => affichage.orgaId === assoId)
     console.log('messages:', messages)
     return (
       <div>
@@ -64,7 +66,7 @@ class AssoMessage extends React.Component {
           renderItem={item => (
             <List.Item
               actions={[
-                <Tooltip placement='top' title='Attribuer une perm'>
+                <Tooltip placement='top' title='Attribuer à une perm'>
                   <a
                     onClick={() =>
                       this.setState({ permVisible: true, affichage: item })
@@ -103,7 +105,7 @@ class AssoMessage extends React.Component {
 
                 {item.perms &&
                   item.perms.map(perm => (
-                    <div>
+                    <div key={perm.id}>
                       - {perm.day} {perm.start}/{perm.end}{' '}
                       <a
                         style={{ color: 'red' }}
