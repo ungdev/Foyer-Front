@@ -183,16 +183,16 @@ class PermanencesDetails extends React.Component {
           />
         )}
         {perm &&
-          (perm.Members && perm.Members.length > 0 ? null : (
+          (perm.members && perm.members.length > 0 ? null : (
             <Button type='primary' onClick={this.openAssoModal}>
               Ajouter une association
             </Button>
           ))}
-        {perm && perm.Members && perm.Members.length > 0 && (
+        {perm && perm.members && perm.members.length > 0 && (
           <List
             header={<div>Liste des étudiants membres de la permanence :</div>}
             bordered
-            dataSource={perm.Members}
+            dataSource={perm.members}
             renderItem={item => {
               return (
                 <List.Item

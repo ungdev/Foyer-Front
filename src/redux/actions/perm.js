@@ -115,8 +115,8 @@ export const addEtuToPerm = (id, login) => {
       const etu = res.data
       const perms = getState().perm.perms.slice()
       const index = perms.findIndex(p => p.id === id)
-      if (!perms[index].Members) perms[index].Members = []
-      perms[index].Members.push(etu)
+      if (!perms[index].members) perms[index].members = []
+      perms[index].members.push(etu)
       dispatch({ type: EDIT_PERM, perms })
     } catch (err) {
       errorHandler(err, dispatch)
@@ -163,8 +163,8 @@ export const deleteEtuFromPerm = (id, login) => {
       })
       const perms = getState().perm.perms.slice()
       const index = perms.findIndex(p => p.id === id)
-      if (!perms[index].Members) perms[index].Members = []
-      perms[index].Members = perms[index].Members.filter(e => e.login !== login)
+      if (!perms[index].members) perms[index].members = []
+      perms[index].members = perms[index].members.filter(e => e.login !== login)
       dispatch({ type: EDIT_PERM, perms })
     } catch (err) {
       errorHandler(err, dispatch)
