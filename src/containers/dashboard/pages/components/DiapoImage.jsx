@@ -51,7 +51,7 @@ class DiapoImage extends React.Component {
             Supprimer l'image
           </Button>
         </Modal>
-        {asso.diapoImage && (
+        {asso && asso.diapoImage && (
           <img src={process.env.REACT_APP_API + asso.diapoImage} alt='' />
         )}
         <Button type='primary' onClick={() => this.setState({ visible: true })}>

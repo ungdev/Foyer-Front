@@ -1,20 +1,41 @@
 import React from 'react'
-import { Button, List } from 'antd'
+import { Button, List, Tooltip, Icon } from 'antd'
 import { connect } from 'react-redux'
 import MessageDrawer from './MessageDrawer'
 import {
   fetchAffichages,
-  deleteAffichage
+  deleteAffichage,
+  addPermToAffichage,
+  deletePermFromAffichage
 } from '../../../../redux/actions/affichage'
+import { fetchPerms } from '../../../../redux/actions/perm'
+import PermModal from './PermModal'
 
 class AssoMessage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       affichage: null,
-      visible: false
+      visible: false,
+      permVisible: false
     }
     props.fetchAffichages()
+    props.fetchPerms()
+  }
+  addPerm = affichage => {
+    const form = this.permFormRef.props.form
+    form.validateFields((err, values) => {
+      if (err) {
+        return
+      }
+
+      this.props.addPermToAffichage(affichage.id, values.perm)
+      form.resetFields()
+      this.setState({ permVisible: false })
+    })
+  }
+  savePermFormRef = formRef => {
+    this.permFormRef = formRef
   }
 
   render() {
@@ -30,26 +51,71 @@ class AssoMessage extends React.Component {
           assoId={this.props.assoId}
           onClose={() => this.setState({ visible: false })}
         />
-        {/* TODO add message list */}
+        <PermModal
+          wrappedComponentRef={this.savePermFormRef}
+          visible={this.state.permVisible}
+          onCancel={() => this.setState({ permVisible: false })}
+          onCreate={() => this.addPerm(this.state.affichage)}
+          affichage={this.state.affichage}
+        />
         <List
           itemLayout='horizontal'
           dataSource={messages}
           renderItem={item => (
             <List.Item
               actions={[
-                <a
-                  onClick={() =>
-                    this.setState({ visible: true, affichage: item })
-                  }
-                >
-                  modifier
-                </a>,
-                <a onClick={() => this.props.deleteAffichage(item.id)}>
-                  supprimer
-                </a>
+                <Tooltip placement='top' title='Attribuer une perm'>
+                  <a
+                    onClick={() =>
+                      this.setState({ permVisible: true, affichage: item })
+                    }
+                  >
+                    <Icon type='plus' />
+                  </a>
+                </Tooltip>,
+                <Tooltip placement='top' title='Modifier'>
+                  <a
+                    onClick={() =>
+                      this.setState({ visible: true, affichage: item })
+                    }
+                  >
+                    <Icon type='edit' />
+                  </a>
+                </Tooltip>,
+                <Tooltip placement='top' title='Supprimer'>
+                  <a onClick={() => this.props.deleteAffichage(item.id)}>
+                    <Icon type='delete' />
+                  </a>
+                </Tooltip>
               ]}
             >
               <List.Item.Meta title={item.title} description={item.text} />
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}
+              >
+                {item.perms && item.perms.length > 0 && (
+                  <div>Liste des créneaux d'affichage :</div>
+                )}
+
+                {item.perms &&
+                  item.perms.map(perm => (
+                    <div>
+                      - {perm.day} {perm.start}/{perm.end}{' '}
+                      <a
+                        style={{ color: 'red' }}
+                        onClick={() =>
+                          this.props.deletePermFromAffichage(item.id, perm.id)
+                        }
+                      >
+                        <Icon type='delete' />
+                      </a>
+                    </div>
+                  ))}
+              </div>
             </List.Item>
           )}
         />
@@ -71,9 +137,15 @@ const mapDispatchToProps = dispatch => ({
   fetchAffichages: () => {
     dispatch(fetchAffichages())
   },
+  fetchPerms: () => {
+    dispatch(fetchPerms())
+  },
   deleteAffichage: id => {
     dispatch(deleteAffichage(id))
-  }
+  },
+  addPermToAffichage: (id, perm) => dispatch(addPermToAffichage(id, perm)),
+  deletePermFromAffichage: (affichageId, permId) =>
+    dispatch(deletePermFromAffichage(affichageId, permId))
 })
 
 export default connect(

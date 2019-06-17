@@ -46,6 +46,63 @@ export const createAffichage = (params, assoId) => {
   }
 }
 
+export const addPermToAffichage = (affichageId, permId) => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      const res = await axios.post(
+        `perms/${permId}/affichages`,
+        { affichageId },
+        {
+          headers: {
+            Authorization: `Basic ${authToken}`,
+            'X-Date': moment().format()
+          }
+        }
+      )
+
+      const { perms } = getState().perm
+      const perm = perms.find(p => p.id === permId)
+      const affichages = getState().affichage.affichages.slice()
+      const index = affichages.findIndex(a => a.id === affichageId)
+      if (!affichages[index].perms) affichages[index].perms = []
+      affichages[index].perms.push(perm)
+      dispatch({ type: EDIT_AFFICHAGE, affichages })
+    } catch (err) {
+      errorHandler(err, dispatch)
+    }
+  }
+}
+
+export const deletePermFromAffichage = (affichageId, permId) => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      await axios.delete(`perms/${permId}/affichages/${affichageId}`, {
+        headers: {
+          Authorization: `Basic ${authToken}`,
+          'X-Date': moment().format()
+        }
+      })
+      const affichages = getState().affichage.affichages.slice()
+      const index = affichages.findIndex(a => a.id === affichageId)
+      if (!affichages[index].perms) affichages[index].perms = []
+      affichages[index].perms = affichages[index].perms.filter(
+        p => p.id !== permId
+      )
+      dispatch({ type: EDIT_AFFICHAGE, affichages })
+    } catch (err) {
+      errorHandler(err, dispatch)
+    }
+  }
+}
+
 export const editAffichage = (id, params) => {
   return async (dispatch, getState) => {
     const authToken = getState().login.token
