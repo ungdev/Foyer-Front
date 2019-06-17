@@ -49,7 +49,7 @@ class MessageDrawer extends React.Component {
           <Form.Item label='Contenu' style={{ marginBottom: 0 }}>
             {getFieldDecorator('text', {
               initialValue: affichage ? affichage.text : ''
-            })(<Input placeholder='Le contenu du message' />)}
+            })(<Input.TextArea placeholder='Le contenu du message' />)}
           </Form.Item>
           <Form.Item>
             <Button type='primary' htmlType='submit'>
