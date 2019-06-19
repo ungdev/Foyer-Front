@@ -32,7 +32,7 @@ class Home extends React.Component {
             className='home-logo'
             style={{ width: logoWidth, height: logoWidth }}
           >
-            <Logo />
+            <Logo allLogos={song && song.is_playing} />
           </div>
         </div>
       </div>
