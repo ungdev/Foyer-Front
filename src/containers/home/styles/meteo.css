@@ -6,7 +6,7 @@
 }
 .meteo-top,
 .meteo-bottom {
-  height: 50%;
+  height: 50% !important;
   width: 100%;
 }
 .meteo-bottom {
@@ -29,7 +29,9 @@
   text-align: center;
 }
 .meteo-item > img {
-  width: 80%;
+  max-width: 100%;
+  width: 150px;
+  height: 150px;
 }
 .meteo-temp {
   font-size: 30px;

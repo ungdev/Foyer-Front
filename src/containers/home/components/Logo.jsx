@@ -10,8 +10,7 @@ class Logo extends React.Component {
     props.fetchLogos()
   }
   render() {
-    let { logos, allLogos } = this.props
-    if (!allLogos && logos) logos = [logos[0]]
+    let { logos } = this.props
     return (
       <div className='logo-container'>
         <Carousel dots={false} autoplay>

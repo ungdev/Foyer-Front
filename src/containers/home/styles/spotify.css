@@ -31,13 +31,13 @@
   flex-direction: column;
 }
 .spotify-song {
-  color: white;
   font-size: 30px;
   max-width: 60%;
   text-align: center;
   margin-bottom: 20px;
 }
 .spotify-progress-bar {
+  color: white;
   width: 60%;
   display: flex;
   justify-content: space-around;

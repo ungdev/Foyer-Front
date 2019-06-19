@@ -5,7 +5,7 @@ import Logo from './components/Logo'
 import Diapo from './components/Diapo'
 import Spotify from './components/Spotify'
 import LogosMarquee from './components/LogosMarquee'
-import Meteo from './components/Meteo'
+import MeteoTwitterCarousel from './components/MeteoTwitterCarousel'
 
 class Home extends React.Component {
   render() {
@@ -26,13 +26,13 @@ class Home extends React.Component {
             className='home-meteo'
             style={{ height: window.innerHeight - logoWidth }}
           >
-            <Meteo />
+            <MeteoTwitterCarousel />
           </div>
           <div
             className='home-logo'
             style={{ width: logoWidth, height: logoWidth }}
           >
-            <Logo allLogos={song && song.is_playing} />
+            <Logo />
           </div>
         </div>
       </div>

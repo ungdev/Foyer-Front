@@ -48,7 +48,6 @@ class PermModal extends React.Component {
           return -1
         return 0
       })
-    console.log(perms)
     const { getFieldDecorator } = form
     return (
       <Modal

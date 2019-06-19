@@ -21,7 +21,13 @@
   width: 100%;
 }
 
-.ant-carousel .slick-slide div {
+.ant-carousel .slick-slide > div {
+  height: 100%;
+}
+.ant-carousel .slick-slide > div > div {
+  height: 100%;
+}
+.ant-carousel .slick-slide > div > div > div {
   height: 100%;
 }
 

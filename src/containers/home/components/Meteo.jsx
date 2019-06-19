@@ -5,7 +5,6 @@ import MeteoItem from './MeteoItem'
 
 class Meteo extends React.Component {
   render() {
-    console.log('WEATHER', this.props.weather)
     if (!this.props.weather || this.props.weather.length === 0) return null
 
     const [first, second, third] = this.props.weather
