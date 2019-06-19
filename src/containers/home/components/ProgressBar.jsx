@@ -55,6 +55,7 @@ class ProgressBar extends React.Component {
           status='active'
           showInfo={false}
           className='spotify-bar'
+          strokeColor='#0FD062'
         />
         <div>{this.formatTime(totalTime)}</div>
       </div>

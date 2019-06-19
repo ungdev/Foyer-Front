@@ -1,5 +1,6 @@
 .spotify-container {
-  background-color: rgb(15, 208, 98);
+  background-color: rgb(42, 43, 42);
+  color: rgb(15, 208, 98);
   width: 100%;
   height: 100%;
   display: flex;
@@ -30,7 +31,8 @@
   flex-direction: column;
 }
 .spotify-song {
-  font-size: 20px;
+  color: white;
+  font-size: 30px;
   max-width: 60%;
   text-align: center;
   margin-bottom: 20px;
@@ -40,7 +42,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  font-size: 15px;
+  font-size: 25px;
 }
 .spotify-bar {
   margin-bottom: 3px;
