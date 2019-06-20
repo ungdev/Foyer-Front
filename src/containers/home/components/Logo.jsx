@@ -11,7 +11,9 @@ class Logo extends React.Component {
   }
   render() {
     let { logos, allLogos } = this.props
-    if (!allLogos && logos) logos = [logos[0]]
+    if (!allLogos && logos && logos.length > 10) logos = [logos[0]]
+    // if logos's length is greater than 10, then their's all logos, 
+    // and there's also the marquee. So we only put foyer's logo
     return (
       <div className='logo-container'>
         <Carousel dots={false} autoplay>

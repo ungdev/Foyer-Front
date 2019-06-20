@@ -28,12 +28,17 @@ class DiapoImage extends React.Component {
     this.props.deleteImageToAsso(this.props.asso.id)
   }
 
-
   render() {
     const { asso } = this.props
     const { visible } = this.state
     return (
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+          alignItems: 'center'
+        }}
+      >
         <Modal
           visible={visible}
           title="Modifier l'image"
@@ -47,16 +52,27 @@ class DiapoImage extends React.Component {
             initialImage={asso && asso.diapoImage}
             buttonClickedTime={moment()}
           />
-          <Button type='primary' onClick={this.deleteImage}>
-            Supprimer l'image
-          </Button>
         </Modal>
         {asso && asso.diapoImage && (
-          <img src={process.env.REACT_APP_API + asso.diapoImage} alt='' />
+          <img
+            src={process.env.REACT_APP_API + asso.diapoImage}
+            alt=''
+            style={{ maxWidth: '50%' }}
+          />
         )}
-        <Button type='primary' onClick={() => this.setState({ visible: true })}>
-          Modifier l'image
-        </Button>
+        {asso && !asso.diapoImage && (
+          <Button
+            type='primary'
+            onClick={() => this.setState({ visible: true })}
+          >
+            Ajouter une image
+          </Button>
+        )}
+        {asso && asso.diapoImage && (
+          <Button type='danger' onClick={() => this.deleteImage()}>
+            Supprimer l'image
+          </Button>
+        )}
       </div>
     )
   }
