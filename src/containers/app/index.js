@@ -38,11 +38,14 @@ class App extends React.Component {
             />
           ) : (
             <Route
+              exact
               path={process.env.REACT_APP_BASEURL}
               component={Login}
             />
           )}
-          <Redirect from='*' to={process.env.REACT_APP_BASEURL} />
+          { this.props.location && !this.props.location.pathname.includes('/api/v1') ?
+            <Redirect from='*' to={process.env.REACT_APP_BASEURL} /> : null
+          }
         </Switch>
       </div>
     )
